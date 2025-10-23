@@ -7,14 +7,47 @@ import {
     MenuContent,
     useBreakpointValue,
     Flex,
-    Portal
+    Portal,
+    For
 } from "@chakra-ui/react"
-import { ButtonCustom } from "./ui/custon"
+import { ButtonCustom } from "@/components/ui/custon"
 import { ArrowDownForRefBool, ArrowDownMobile, LogoutSVG } from "@/svg"
-import { useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 
 export const Navbar = () => {
-    const [selectedMenu, setSelectedMenu] = useState("Заявки")
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const getSelectedMenu = () => {
+        switch (location.pathname) {
+            case "/":
+                return "Заявки"
+            case "/reports":
+                return "Отчёты"
+            case "/guide":
+                return "Справочник"
+            default:
+                return "Заявки"
+        }
+    }
+
+    const selectedMenu = getSelectedMenu()
+
+    const handleMenuClick = (menuItem: string) => {
+        switch (menuItem) {
+            case "Заявки":
+                navigate("/")
+                break
+            case "Отчёты":
+                navigate("/reports")
+                break
+            case "Справочник":
+                navigate("/guide")
+                break
+            default:
+                navigate("/")
+        }
+    }
 
     const padding = useBreakpointValue({
         sm: "16px 0px"
@@ -47,6 +80,10 @@ export const Navbar = () => {
         sm: true
     })
 
+    const getTextColor = (menuItem: string) => {
+        return selectedMenu === menuItem ? "rgba(28, 28, 28, 1)" : "rgba(176, 176, 176, 1)"
+    }
+
     return (
         <Box
             display={'flex'}
@@ -69,27 +106,29 @@ export const Navbar = () => {
                 {showFullNavigation ? (
                     <>
                         <Box display={'flex'} gap={"14px"}>
-                            <Span
-                                cursor="pointer"
-                                _hover={{ color: "blue.500" }}
-                                transition="color 0.2s ease-in-out"
-                            >
-                                Заявки
-                            </Span>
-                            <Span
-                                cursor="pointer"
-                                _hover={{ color: "blue.500" }}
-                                transition="color 0.2s ease-in-out"
-                            >
-                                Отчёты
-                            </Span>
+                            <For each={["Заявки", "Отчёты"]}>
+                                {(item, index) =>
+                                    <Span
+                                        key={index}
+                                        cursor="pointer"
+                                        color={getTextColor(item)}
+                                        _hover={{ color: "rgba(28, 28, 28, 1)" }}
+                                        transition="color 0.2s ease-in-out"
+                                        onClick={() => handleMenuClick(item)}
+                                    >
+                                        {item}
+                                    </Span>
+                                }
+                            </For>
                         </Box>
                         <Flex
                             cursor="pointer"
-                            _hover={{ color: "blue.500" }}
+                            color={getTextColor("Справочник")}
+                            _hover={{ color: "rgba(28, 28, 28, 1)" }}
                             alignItems={"center"}
                             gap={"4px"}
                             transition="color 0.2s ease-in-out"
+                            onClick={() => handleMenuClick("Справочник")}
                         >
                             Справочник <ArrowDownForRefBool />
                         </Flex>
@@ -113,13 +152,31 @@ export const Navbar = () => {
                         <Portal>
                             <Menu.Positioner>
                                 <MenuContent>
-                                    <Menu.Item value="Заявки" onClick={() => setSelectedMenu("Заявки")}>
+                                    <Menu.Item
+                                        value="Заявки"
+                                        onClick={() => handleMenuClick("Заявки")}
+                                        style={{
+                                            color: selectedMenu === "Заявки" ? "black" : "rgba(176, 176, 176, 1)"
+                                        }}
+                                    >
                                         Заявки
                                     </Menu.Item>
-                                    <Menu.Item value="Отчёты" onClick={() => setSelectedMenu("Отчёты")}>
+                                    <Menu.Item
+                                        value="Отчёты"
+                                        onClick={() => handleMenuClick("Отчёты")}
+                                        style={{
+                                            color: selectedMenu === "Отчёты" ? "black" : "rgba(176, 176, 176, 1)"
+                                        }}
+                                    >
                                         Отчёты
                                     </Menu.Item>
-                                    <Menu.Item value="Справочник" onClick={() => setSelectedMenu("Справочник")}>
+                                    <Menu.Item
+                                        value="Справочник"
+                                        onClick={() => handleMenuClick("Справочник")}
+                                        style={{
+                                            color: selectedMenu === "Справочник" ? "black" : "rgba(176, 176, 176, 1)"
+                                        }}
+                                    >
                                         Справочник
                                     </Menu.Item>
                                 </MenuContent>
