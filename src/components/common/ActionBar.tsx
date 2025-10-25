@@ -64,7 +64,7 @@ const SearchAndCreateBar = memo(() => {
                 w={"120px"} position={'fixed'}
                 bottom={'80px'} right={'20px'}
                 border={"2px solid #1C1C1C"}
-                background={"transparent"} color={"black"}
+                background={"white"} color={"black"}
                 fontWeight={"20px"}
                 borderRadius={"5px"}
                 height={"40px"}
@@ -104,14 +104,14 @@ const SearchAndCreateBar = memo(() => {
 })
 
 const STATUS_OPTIONS = [
+    { label: "Все статусы", value: "all" },
     { label: "Новые", value: "new" },
     { label: "Отклонены", value: "rejected" },
-    { label: "На рассмотрении", value: "pending" },
     { label: "В работе", value: "in_progress" },
-    { label: "Ожидают запчасти", value: "waiting_parts" },
     { label: "Готовы", value: "ready" },
     { label: "Закрыты", value: "closed" },
-    { label: "Все статусы", value: "all" },
+    { label: "На рассмотрении", value: "pending" },
+    { label: "Ожидают запчасти", value: "waiting_parts" },
 ];
 
 const FilterButton = memo(() => {
@@ -154,14 +154,20 @@ const FilterButton = memo(() => {
             overflowX="auto"
             paddingLeft="20px"
             whiteSpace="nowrap"
-            cursor="grab"
+            flexDirection="row"
             css={{ "&::-webkit-scrollbar": { display: "none" } }}
+            paddingRight={{ base: "20px", sm: "0px" }}
             onMouseDown={onMouseDown}
             onMouseLeave={onMouseLeave}
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
         >
-            <Box display="flex" gap="10px" flexShrink={0}>
+            <Box
+                display="flex"
+                gap="10px"
+                flexShrink={0}
+                order={{ base: 2, sm: 1 }}
+            >
                 <For each={STATUS_OPTIONS}>
                     {(item, index) =>
                         <ButtonCustom
@@ -180,19 +186,23 @@ const FilterButton = memo(() => {
                     }
                 </For>
             </Box>
+
             <Span
                 w="3px"
                 h="auto"
                 background="rgba(217, 225, 236, 1)"
                 margin="0px 25px"
                 flexShrink={0}
+                display={{ base: "none", sm: "block" }}
+                order={{ base: 3, sm: 2 }}
             />
+
             <ButtonCustom
                 border="none"
-                padding="0px 17px"
+                padding={"0px 17px"}
                 fontSize={{ base: "14px", sm: "16px" }}
                 height={{ base: "32px", sm: "40px" }}
-                marginRight={"20px"}
+                marginRight={{ base: "10px", sm: "20px" }}
                 flexShrink={0}
                 css={{
                     '& svg': {
@@ -203,8 +213,9 @@ const FilterButton = memo(() => {
                 bg={selectFilter === "my" ? "rgba(28, 28, 28, 1)" : "rgba(241, 241, 241, 1)"}
                 color={selectFilter === "my" ? "white" : "rgba(28, 28, 28, 1)"}
                 onClick={() => setSelectFilter("my")}
+                order={{ base: 1, sm: 3 }}
             >
-                <MdOutlineFilterAlt /> Показать только мои
+                <MdOutlineFilterAlt /> <Span display={{ base: "none", sm: "block" }}>Показать только мои</Span>
             </ButtonCustom>
         </Box>
     )
