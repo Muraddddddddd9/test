@@ -90,7 +90,7 @@ export const Navbar = () => {
             justifyContent={"space-between"}
             padding={padding}
             alignItems={showFullNavigation ? "" : "start"}
-            border={"1px solid rgba(217, 225, 236, 1)"}
+            borderBottom={"1px solid rgba(217, 225, 236, 1)"}
             width={"100%"}
             boxSizing={"border-box"}
             transition="all 0.3s ease-in-out"
