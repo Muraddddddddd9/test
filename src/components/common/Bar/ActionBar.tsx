@@ -1,12 +1,12 @@
 import { Box, Button, For, Input, InputGroup, Span } from "@chakra-ui/react"
 import { LuSearch } from "react-icons/lu"
-import { ButtonCustom } from "../ui/custon"
+import { ButtonCustom } from "@/components/ui/custon"
 import { PDFSVG } from "@/svg"
-import { HiPlus } from "react-icons/hi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { memo, useRef, useState } from "react";
-import { MdOutlineFilterAlt } from "react-icons/md";
 import { useApplicationsContext } from "@/components/contexts";
+import { CreateDialog } from "@/components/common/Dialog/CreateDialog";
+import { MdOutlineFilterAlt } from "react-icons/md";
 
 const SearchAndCreateBar = memo(() => {
     const { searchInput, setSearchInput } = useApplicationsContext();
@@ -80,25 +80,7 @@ const SearchAndCreateBar = memo(() => {
                 <AiOutlineSearch /> Поиск
             </Button>
 
-            <Button
-                fontSize={"16px"}
-                order={{ base: 3, sm: 2 }}
-                position={{ base: 'fixed', sm: 'static' }}
-                bottom={{ base: '20px', sm: 'auto' }}
-                right={{ base: '20px', sm: 'auto' }}
-                zIndex={{ base: 10, sm: 'auto' }}
-                paddingLeft={"15px"} paddingRight={"15px"}
-                height={"40px"}
-                bg={"1C1C1C"}
-                css={{
-                    '& svg': {
-                        width: '20px',
-                        height: '20px'
-                    }
-                }}
-            >
-                <HiPlus /> Создать новую заявку
-            </Button>
+            <CreateDialog />
         </Box >
     )
 })
@@ -225,7 +207,7 @@ export const ActionBar = () => {
     return (
         <Box
             borderBottom={{ sm: "1px solid rgba(219, 229, 242, 1)" }}
-            paddingBottom={"21px"}
+            padding={{ base: "0px", md: "0px 20px 21px 20px" }}
         >
             <SearchAndCreateBar />
             <FilterButton />

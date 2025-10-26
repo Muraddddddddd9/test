@@ -19,7 +19,7 @@ const COLUMNS_CONFIG = [
 
 export const TableApp: React.FC<{ appFilterData: IApplications[] | null }> = ({ appFilterData }) => {
     return (
-        <Box margin={"20px 20px 0px 20px"}>
+        <Box margin={"20px 40px 0px 40px"}>
             {appFilterData ?
                 <Table.Root size="sm" variant="outline" w={"100%"} css={{
                     borderTopLeftRadius: "8px",

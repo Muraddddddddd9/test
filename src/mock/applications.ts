@@ -7,12 +7,15 @@ export interface IApplications {
     priority: "high" | "medium" | "low" | "critical"
     topic: string
     category: string
+    description: string
     id_creator: number | null
     id_technician: number | null
     technician: string | null
     reaction: number
     decision: number | null
     status: "new" | "rejected" | "pending" | "in_progress" | "waiting_parts" | "ready" | "closed" | "all"
+    warranty: boolean
+    file: File[] | null
 }
 
 export const ApplicationsData: IApplications[] = [
@@ -25,12 +28,15 @@ export const ApplicationsData: IApplications[] = [
         priority: "high",
         topic: "Поломка кассы",
         category: "Кассы",
+        description: "",
         id_technician: null,
         id_creator: 2,
         technician: null,
         reaction: Date.now(),
         decision: null,
         status: "new",
+        warranty: true,
+        file: null
     },
     {
         id: "ХЛ-0002",
@@ -41,12 +47,15 @@ export const ApplicationsData: IApplications[] = [
         priority: "medium",
         topic: "Холодильник сильно гудит",
         category: "Холодильники",
+        description: "",
         id_creator: 1,
         id_technician: 1,
         technician: "Федоровский Н.",
         reaction: 1761368969000,
         decision: null,
         status: "in_progress",
+        warranty: true,
+        file: null
     },
     {
         id: "КН-0002",
@@ -57,12 +66,15 @@ export const ApplicationsData: IApplications[] = [
         priority: "low",
         topic: "Конденсат на внутреннем блоке",
         category: "Холодильники",
+        description: "",
         id_creator: 2,
         id_technician: 2,
         technician: "Максимов П.",
         reaction: 1761368980000,
         decision: 1761369969000,
         status: "ready",
+        warranty: false,
+        file: null
     },
     {
         id: "ИЗ-0002",
@@ -73,12 +85,15 @@ export const ApplicationsData: IApplications[] = [
         priority: "critical",
         topic: "Нужно поверить гигрометр",
         category: "Изм. оборуд.",
+        description: "",
         id_creator: 1,
         id_technician: 1,
         technician: "Алексеев М.",
         reaction: 1761210069000,
         decision: 1761215069000,
         status: "ready",
+        warranty: true,
+        file: null
     },
     {
         id: "ПО-0002",
@@ -89,12 +104,15 @@ export const ApplicationsData: IApplications[] = [
         priority: "high",
         topic: "Заметили крыс у входа",
         category: "Помещения",
+        description: "",
         id_creator: 1,
         id_technician: 3,
         technician: "Сидоров Е.",
         reaction: 1761370469000,
         decision: 1761375969000,
         status: "closed",
+        warranty: false,
+        file: null
     },
     {
         id: "ИТ-0002",
@@ -105,12 +123,15 @@ export const ApplicationsData: IApplications[] = [
         priority: "high",
         topic: "Нужен новый компьютер",
         category: "ИТ",
+        description: "",
         id_creator: 4,
         id_technician: 4,
         technician: "Китов Я.",
         reaction: 1761370369000,
         decision: 1761370969000,
         status: "closed",
+        warranty: true,
+        file: null
     },
     {
         id: "СА-0002",
@@ -121,11 +142,14 @@ export const ApplicationsData: IApplications[] = [
         priority: "medium",
         topic: "Унитаз перестал смывать",
         category: "Сантехника",
+        description: "",
         id_creator: 5,
         id_technician: 5,
         technician: "Малахов Н.",
         reaction: 1761370969000,
         decision: 1761390969000,
         status: "ready",
+        warranty: true,
+        file: null
     },
 ]

@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-    Box,
-    VStack,
-    HStack,
-    Text,
-    Center,
-} from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Center } from "@chakra-ui/react";
 import type { IApplications } from "@/mock";
 import { getPriority, getStatus, getDecision, groupByDate } from "@/components/utils"
 import { MdOutlineInbox } from "react-icons/md";
