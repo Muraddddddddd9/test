@@ -6,7 +6,7 @@ export const CategorySelect = () => {
     const { categortData, setCategortData } = useCreateDialogContext()
 
     return (
-        <Select.Root collection={CategoryList} size="sm" value={categortData ? [categortData] : []} // текущее значение
+        <Select.Root collection={CategoryList} size="sm" value={categortData ? [categortData] : []} 
             onValueChange={(val) => {
                 setCategortData(val.value[0])
             }}>

@@ -183,16 +183,21 @@ export const CreateDialog = () => {
                                             />
                                         </Field.Root>
 
-                                        <Field.Root>
-                                            <Field.Label>
-                                                <Span fontSize="14px" fontWeight="400">
-                                                    Прикрепите файлы
-                                                </Span>
-                                            </Field.Label>
-                                            <Box mt="7.5px">
-                                                <UploadFile />
-                                            </Box>
-                                        </Field.Root>
+                                        <Box
+                                            display={{ base: "none", md: "block" }}
+                                        >
+
+                                            <Field.Root >
+                                                <Field.Label >
+                                                    <Span fontSize="14px" fontWeight="400">
+                                                        Прикрепите файлы
+                                                    </Span>
+                                                </Field.Label>
+                                                <Box mt="7.5px">
+                                                    <UploadFile />
+                                                </Box>
+                                            </Field.Root>
+                                        </Box>
                                     </Box>
                                 </Grid>
                             </Dialog.Body>

@@ -10,7 +10,6 @@ export const UploadFile = () => {
         <FileUpload.Root
             key={uploadKey}
             w="100%"
-            display={{ base: "none", md: "flex" }}
             gap="12px"
             maxFiles={10}
             onFileAccept={(detail) => {
@@ -33,7 +32,7 @@ export const UploadFile = () => {
 
             <FileUpload.HiddenInput ref={inputRef} />
 
-            <Box w={"100%"} display={"flex"} gap={"10px"}>
+            <Box w={"100%"} display={"flex"} gap={fileData && fileData?.length > 0 ? "10px" : "0px"}>
                 <FileUpload.Dropzone minHeight="100px" height={"fit-content"} w="100%" borderRadius={"14px"}>
                     <FileUpload.DropzoneContent>
                         <Box fontWeight="300" fontSize="14px">
