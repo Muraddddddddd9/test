@@ -34,12 +34,12 @@ export const TableApp: React.FC<{ appFilterData: IApplications[] | null }> = ({ 
                             }
                         </For>
                     </Table.ColumnGroup>
-                    <Table.Header fontSize={"14px"} fontWeight={400} >
-                        <Table.Row >
+                    <Table.Header fontSize={"14px"} fontWeight={400} maxHeight={"40px"} >
+                        <Table.Row>
                             <For each={COLUMNS_CONFIG}>
                                 {(items, index) =>
                                     <Table.ColumnHeader key={index}
-                                        borderBottom={"1px solid rgba(217, 225, 236, 1)"}
+                                        borderBottom={"1px solid rgba(217, 225, 236, 1)"} padding={"7.25px"}
                                         display={items.hideOnXl ? { base: "none", lg: "table-cell" } : "table-cell"}
                                     >
                                         <Box display={'flex'} alignItems={'center'} justifyContent={"space-between"}>
@@ -65,9 +65,10 @@ export const TableApp: React.FC<{ appFilterData: IApplications[] | null }> = ({ 
                             return (
                                 <Table.Row key={item.id} fontSize={"14px"}
                                     borderBottom={"1px solid rgba(217, 225, 236, 1)"}
+                                    padding={"0px"} maxH={"40px"}
                                 >
-                                    <Table.Cell>{item.id}</Table.Cell>
-                                    <Table.Cell display={"flex"} alignItems={"center"} gap={"5px"}>
+                                    <Table.Cell padding={"0px 10px"} h={"40px"}>{item.id}</Table.Cell>
+                                    <Table.Cell padding={"0px 10px"} h={"40px"} display={"flex"} alignItems={"center"} gap={"5px"}>
                                         <Span
                                             display={'flex'}
                                             bg={"rgba(241, 241, 241, 1)"} padding={"0px 3px"}
@@ -78,13 +79,13 @@ export const TableApp: React.FC<{ appFilterData: IApplications[] | null }> = ({ 
                                         </Span>
                                         {item.pharmacy_city} {item.pharmacy_address}
                                     </Table.Cell>
-                                    <Table.Cell>
+                                    <Table.Cell padding={"0px 10px"} h={"40px"}>
                                         <Span display={'flex'} gap={"5px"}>
                                             {createFormat.date}
                                             <Span color={"rgba(28, 28, 28, 0.4)"}>{createFormat.time}</Span>
                                         </Span>
                                     </Table.Cell>
-                                    <Table.Cell>
+                                    <Table.Cell padding={"0px 10px"} h={"40px"}>
                                         <Span display={'flex'} alignItems={"center"} gap={"10px"}>
                                             <priorityData.svg />
                                             <Span
@@ -93,12 +94,12 @@ export const TableApp: React.FC<{ appFilterData: IApplications[] | null }> = ({ 
                                             >{priorityData.label}</Span>
                                         </Span>
                                     </Table.Cell>
-                                    <Table.Cell>{item.topic}</Table.Cell>
-                                    <Table.Cell
+                                    <Table.Cell padding={"0px 10px"} h={"40px"}>{item.topic}</Table.Cell>
+                                    <Table.Cell padding={"0px 10px"}
                                         display={{ base: "none", lg: "block" }}
                                     >{item.category}</Table.Cell>
-                                    <Table.Cell>{item.technician ? item.technician : <Span color={"rgba(28, 28, 28, 0.4)"}>—</Span>}</Table.Cell>
-                                    <Table.Cell display={{ base: "none", lg: "block" }}>{!item.technician ?
+                                    <Table.Cell padding={"0px 10px"}>{item.technician ? item.technician : <Span color={"rgba(28, 28, 28, 0.4)"}>—</Span>}</Table.Cell>
+                                    <Table.Cell padding={"0px 10px"} display={{ base: "none", lg: "block" }}>{!item.technician ?
                                         <Span
                                             display={"flex"} alignItems={"center"}
                                             gap={"5px"}
@@ -109,7 +110,7 @@ export const TableApp: React.FC<{ appFilterData: IApplications[] | null }> = ({ 
                                             gap={"5px"} color={"rgba(14, 116, 17, 1)"}
                                         ><SuccTimeSVG />{reactionFormat}</Span>
                                     }</Table.Cell>
-                                    <Table.Cell>
+                                    <Table.Cell padding={"0px 10px"}>
                                         {
                                             item.technician ?
                                                 <Span display={"flex"} alignItems={"center"}
@@ -119,7 +120,7 @@ export const TableApp: React.FC<{ appFilterData: IApplications[] | null }> = ({ 
                                                 <Span color={"rgba(28, 28, 28, 0.4)"}>—</Span>
                                         }
                                     </Table.Cell>
-                                    <Table.Cell>
+                                    <Table.Cell padding={"0px 10px"}>
                                         <Span
                                             bg={statusData.color} padding={"2px 6px"} borderRadius={"4px"}
                                             fontWeight={"400"}

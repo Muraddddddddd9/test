@@ -5,7 +5,7 @@ import { LuArrowLeft } from "react-icons/lu"
 import { IoCloseSharp } from "react-icons/io5";
 import { PrioritySelect, CategorySelect, PharmacySelect, UploadFile, UploadFileDialog } from "@/components/common";
 import { Field } from "@ark-ui/react";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useCallback } from "react";
 import { CreateDialogContext } from "@/components/contexts";
 import { useSendRequest, type ISendProps } from "@/hooks";
 
@@ -13,14 +13,15 @@ export const CreateDialog = () => {
     const { SendRequest } = useSendRequest()
 
     const [pharmacyData, setPharmacyData] = useState<{ pharmacy_number: number; pharmacy_city: string; pharmacy_address: string } | null>(null)
-    const [topicData, setTopicData] = useState<string>("")
     const [categortData, setCategortData] = useState<string>("")
     const [priorityData, setPriorityData] = useState<"high" | "medium" | "low" | "critical" | null>(null)
     const [warrantyData, setWarrantyData] = useState<boolean>(false)
-    const [descriptionData, setDescriptionData] = useState<string>("")
     const [fileData, setFileData] = useState<File[] | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const [uploadKey, setUploadKey] = useState(0);
+
+    const topicRef = useRef<HTMLTextAreaElement>(null);
+    const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
     const value = useMemo(() => ({
         pharmacyData,
@@ -36,23 +37,26 @@ export const CreateDialog = () => {
         setUploadKey
     }), [pharmacyData, categortData, priorityData, fileData, uploadKey])
 
-    const SendNewReq = () => {
-        if (!pharmacyData || !priorityData || topicData.trim().length <= 0 || categortData.trim().length <= 0 || descriptionData.trim().length <= 0) return
+    const SendNewReq = useCallback(() => {
+        const topicValue = topicRef.current?.value || "";
+        const descriptionValue = descriptionRef.current?.value || "";
+
+        if (!pharmacyData || !priorityData || topicValue.trim().length <= 0 || categortData.trim().length <= 0 || descriptionValue.trim().length <= 0) return
 
         const new_req: ISendProps = {
             pharmacy_number: pharmacyData?.pharmacy_number,
             pharmacy_city: pharmacyData?.pharmacy_city,
             pharmacy_address: pharmacyData?.pharmacy_address,
             priority: priorityData,
-            topic: topicData,
+            topic: topicValue,
             category: categortData,
-            description: descriptionData,
+            description: descriptionValue,
             warranty: warrantyData,
             file: fileData,
         }
 
         SendRequest({ new_req })
-    }
+    }, [pharmacyData, priorityData, categortData, warrantyData, fileData, SendRequest])
 
     return (
         <CreateDialogContext.Provider value={value}>
@@ -131,6 +135,7 @@ export const CreateDialog = () => {
                                                 </Span>
                                             </Field.Label>
                                             <Textarea
+                                                ref={topicRef}
                                                 placeholder="Дайте заявке краткое название: например, сломался холодильник или не работает кондиционер"
                                                 mt="7.5px"
                                                 fontSize="14px"
@@ -141,7 +146,6 @@ export const CreateDialog = () => {
                                                 autoresize
                                                 h={"75px"}
                                                 maxH={"75px"}
-                                                onChange={(e) => setTopicData(e.target.value)}
                                             />
                                         </Field.Root>
                                     </Box>
@@ -169,6 +173,7 @@ export const CreateDialog = () => {
                                                 </Span>
                                             </Field.Label>
                                             <Textarea
+                                                ref={descriptionRef}
                                                 placeholder={`Кратко опишите проблему:\n  • что случилось? \n  • дата и время произошедшего? \n  • сколько длится проблема? \n  • насколько она влияет на вашу работу?`}
                                                 mt="7.5px"
                                                 fontSize="14px"
@@ -179,7 +184,6 @@ export const CreateDialog = () => {
                                                 borderRadius="8px"
                                                 h={"130px"}
                                                 maxH={"130px"}
-                                                onChange={(e) => setDescriptionData(e.target.value)}
                                             />
                                         </Field.Root>
 
@@ -204,7 +208,7 @@ export const CreateDialog = () => {
                             <Dialog.Footer flexDir={{ base: "column", md: "row" }} justifyContent={"start"} padding={"0px 17px"} paddingBottom={"40px"} fontSize={"16px"}>
                                 <UploadFileDialog />
                                 <Dialog.ActionTrigger asChild>
-                                    <Button onClick={() => SendNewReq()} padding={"8px 17px"} height={"40px"} w={{ base: "100%", md: "auto" }} fontSize={{ base: "16px", md: "auto" }}>Создать заявку</Button>
+                                    <Button onClick={SendNewReq} padding={"8px 17px"} height={"40px"} w={{ base: "100%", md: "auto" }} fontSize={{ base: "16px", md: "auto" }}>Создать заявку</Button>
                                 </Dialog.ActionTrigger>
                                 <Dialog.ActionTrigger asChild display={{ base: "none", md: "block" }}>
                                     <Button variant="outline" padding={"0px 10px"} height={"40px"} border={"1px solid black"}>Отмена</Button>

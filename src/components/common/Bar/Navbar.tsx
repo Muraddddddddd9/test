@@ -57,7 +57,7 @@ export const Navbar = () => {
         base: "16px",
         sm: "24px",
         md: "60px",
-        lg: "120px"
+        lg: "130px"
     })
 
     const fontSize = useBreakpointValue({
@@ -81,7 +81,7 @@ export const Navbar = () => {
     })
 
     const getTextColor = (menuItem: string) => {
-        return selectedMenu === menuItem ? "rgba(28, 28, 28, 1)" : "rgba(176, 176, 176, 1)"
+        return selectedMenu === menuItem ? "#1C1C1C" : "#B0B0B0"
     }
 
     return (
@@ -92,6 +92,7 @@ export const Navbar = () => {
             alignItems={showFullNavigation ? "" : "start"}
             borderBottom={"1px solid rgba(217, 225, 236, 1)"}
             width={"100%"}
+            height={{base: "72px", md: "86px"}}
             boxSizing={"border-box"}
             transition="all 0.3s ease-in-out"
         >
@@ -112,9 +113,15 @@ export const Navbar = () => {
                                         key={index}
                                         cursor="pointer"
                                         color={getTextColor(item)}
-                                        _hover={{ color: "rgba(28, 28, 28, 1)" }}
+                                        _hover={{ color: "#1C1C1C" }}
                                         transition="color 0.2s ease-in-out"
                                         onClick={() => handleMenuClick(item)}
+                                        fontWeight="400"
+                                        fontStyle="Regular"
+                                        fontSize="16px"
+                                        lineHeight="24px"
+                                        letterSpacing="0px"
+
                                     >
                                         {item}
                                     </Span>
@@ -124,7 +131,7 @@ export const Navbar = () => {
                         <Flex
                             cursor="pointer"
                             color={getTextColor("Справочник")}
-                            _hover={{ color: "rgba(28, 28, 28, 1)" }}
+                            _hover={{ color: "#1C1C1C" }}
                             alignItems={"center"}
                             gap={"4px"}
                             transition="color 0.2s ease-in-out"
@@ -187,8 +194,8 @@ export const Navbar = () => {
             </Flex>
 
             <Flex
-                marginRight={"20px"}
-                gap={"30px"}
+                marginRight={"34px"}
+                gap={"27px"}
                 padding={showLogoutButton ? "" : "16px 0px"}
                 alignItems={"center"}
                 transition="all 0.3s ease-in-out"
@@ -236,12 +243,12 @@ export const Navbar = () => {
                         borderRadius={"50px"}
                         bottom={"-5px"}
                         right={"-10px"}
+                        display="flex"
                         textAlign={"center"}
+                        alignItems="center"
                         fontSize={"13px"}
                         fontWeight={"600"}
                         color={"rgba(241, 241, 241, 1)"}
-                        display="flex"
-                        alignItems="center"
                         justifyContent="center"
                         transition="all 0.3s ease-in-out"
                     >2</Span>
@@ -251,7 +258,8 @@ export const Navbar = () => {
                     <ButtonCustom
                         w={"119px"}
                         height={"40px"}
-                        gap={"4px"}
+                        gap={"4px"} fontWeight={"400"}
+                        fontSize={"16px"}
                     >
                         <LogoutSVG /> Выйти
                     </ButtonCustom>

@@ -7,13 +7,12 @@ export const TestYourselData = () => {
     return (
         <Flex flexWrap={{ base: "wrap", md: "nowrap" }} gap={"12px"} justifyContent={"center"}>
             <Box bg={"rgba(255, 250, 212, 1)"} padding={"10px"} borderRadius={"10px"} height={"fit-content"}>
-                <Span
-                    fontWeight={"500"} fontSize={{ base: "14px", md: "12px" }}
-                    display={"flex"} alignItems={"center"}
+                <Span fontSize={{ base: "14px", md: "10px" }}
+                    display={"flex"} alignItems={"center"} gap={"3px"}
                 >
                     <IoMdWarning /> Заявка нужна, если:
                 </Span>
-                <List.Root marginTop={"15px"} marginLeft={"30px"} fontSize={{ base: "13px", md: "11px" }} lineHeight={{ base: "20px", md: "15px" }} css={{
+                <List.Root marginTop={"5px"} marginLeft={"20px"} fontSize={{ base: "13px", md: "10px" }} lineHeight={{ base: "20px", md: "15px" }} css={{
                     '& li::marker': {
                         color: 'black'
                     }
@@ -36,10 +35,10 @@ export const TestYourselData = () => {
                 </List.Root>
             </Box>
             <Box bg={"rgba(255, 234, 234, 1)"} padding={"10px"} borderRadius={"10px"} height={"fit-content"}>
-                <Span fontWeight={"500"} fontSize={{ base: "14px", md: "12px" }}>
+                <Span fontSize={{ base: "14px", md: "10px" }}>
                     ❌ Заявка не нужна, если:
                 </Span>
-                <List.Root marginTop={"15px"} marginLeft={"30px"} fontSize={{ base: "13px", md: "11px" }} lineHeight={{ base: "20px", md: "15px" }} css={{
+                <List.Root marginTop={"5px"} marginLeft={"20px"} fontSize={{ base: "13px", md: "10px" }} lineHeight={{ base: "20px", md: "15px" }} css={{
                     '& li::marker': {
                         color: 'black'
                     }
