@@ -385,6 +385,45 @@
                 align-items: center;
                 padding-bottom: 40px;
             }
+            .hero-more {
+                margin-top: 5px;
+                padding-left: 30px;
+                max-width: 760px;
+                animation: fadeInUp 0.75s ease 0.45s both;
+            }
+            .hero-more-toggle {
+                appearance: none;
+                border: 0;
+                background: transparent;
+                color: #fff;
+                font: inherit;
+                font-size: 19px;
+                line-height: 1.45;
+                cursor: pointer;
+                padding: 0;
+                transition: color 0.2s ease;
+            }
+            .hero-more-toggle:hover {
+                color: var(--orange);
+            }
+            .hero-more-text {
+                color: #fff;
+                font-size: 18px;
+                line-height: 1.75;
+                max-width: 720px;
+                margin-top: 18px;
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                transition:
+                    max-height 0.3s ease,
+                    opacity 0.25s ease;
+            }
+            .hero-more.open .hero-more-text {
+                max-height: 180px;
+                padding-bottom: 20px;
+                opacity: 1;
+            }
             @media (max-width: 1220px) {
                 .hero-body {
                     grid-template-columns: 260px minmax(0, 520px);
@@ -510,6 +549,17 @@
                 }
                 .hero-btns-row {
                     justify-content: center;
+                }
+                .hero-more {
+                    margin-top: 0;
+                    padding-left: 30px;
+                    padding-right: 18px;
+                }
+                .hero-more-toggle {
+                    font-size: 18px;
+                }
+                .hero-more-text {
+                    font-size: 17px;
                 }
             }
 
@@ -679,14 +729,92 @@
             #cases {
                 padding: 90px 0;
             }
+            .cases-showcase {
+                display: grid;
+                grid-template-columns: minmax(520px, 0.98fr) minmax(340px, 0.82fr);
+                gap: 48px;
+                align-items: end;
+            }
             .vinyl-stage {
                 position: relative;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                justify-self: start;
+                width: min(100%, 560px);
                 min-height: 740px;
                 padding-bottom: 20px;
                 overflow: visible;
+            }
+            .trust-panel {
+                width: 100%;
+                background:
+                    radial-gradient(
+                        circle at 85% 0%,
+                        rgba(255, 122, 26, 0.16),
+                        transparent 34%
+                    ),
+                    rgba(18, 12, 34, 0.72);
+                border: 1px solid rgba(255, 255, 255, 0.09);
+                border-radius: 24px;
+                padding: 24px;
+                backdrop-filter: blur(18px);
+                box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+            }
+            .trust-group + .trust-group {
+                margin-top: 20px;
+            }
+            .trust-title {
+                font-family: "Unbounded", sans-serif;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.35;
+                margin-bottom: 14px;
+                color: var(--text);
+            }
+            .trust-logos {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px;
+            }
+            .trust-logo {
+                min-height: 82px;
+                border-radius: 16px;
+                background:
+                    linear-gradient(
+                        145deg,
+                        rgba(255, 255, 255, 0.1),
+                        rgba(255, 255, 255, 0.035)
+                    ),
+                    rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.09);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 12px;
+            }
+            .trust-logo.wide {
+                grid-column: span 2;
+            }
+            .trust-logo img {
+                display: block;
+                max-width: 100%;
+                max-height: 56px;
+                object-fit: contain;
+                filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+            }
+            @media (max-width: 1120px) {
+                .cases-showcase {
+                    grid-template-columns: 1fr;
+                    gap: 34px;
+                }
+                .vinyl-stage {
+                    justify-self: center;
+                }
+                .trust-panel {
+                    max-width: 680px;
+                    justify-self: center;
+                }
             }
             .vinyl-cards {
                 position: absolute;
@@ -973,6 +1101,23 @@
                 right: -60px;
             }
             @media (max-width: 768px) {
+                .trust-panel {
+                    border-radius: 18px;
+                    padding: 18px;
+                }
+                .trust-title {
+                    font-size: 14px;
+                }
+                .trust-logos {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+                .trust-logo {
+                    min-height: 72px;
+                    border-radius: 14px;
+                }
+                .trust-logo.wide {
+                    grid-column: span 2;
+                }
                 .vinyl-record {
                     width: 280px;
                     height: 280px;
@@ -1444,6 +1589,22 @@
                         </form>
                     </div>
                 </div>
+                <div class="hero-more" id="heroMore">
+                    <button
+                        type="button"
+                        class="hero-more-toggle"
+                        aria-expanded="false"
+                        aria-controls="heroMoreText"
+                        onclick="toggleHeroMore()"
+                    >
+                        + Подробно обо мне
+                    </button>
+                    <div class="hero-more-text" id="heroMoreText">
+                        Специализируюсь на создании коммерчески успешных треков,
+                        которые цепляют слушателя и решают задачи артистов и
+                        брендов
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1647,83 +1808,184 @@
                 >
                     Реальные истории клиентов
                 </h2>
-                <div class="vinyl-stage reveal">
-                    <div class="vinyl-cards" id="vinylCards"></div>
-                    <div class="vinyl-active-card" id="vinylActive">
-                        <div class="vac-inner">
-                            <div class="vac-header">
-                                <img
-                                    id="vacPhoto"
-                                    class="vac-photo"
-                                    src=""
-                                    alt=""
-                                />
-                                <div>
-                                    <div class="vac-name" id="vacName"></div>
-                                    <div class="vac-tag" id="vacTag"></div>
+                <div class="cases-showcase reveal">
+                    <div class="vinyl-stage">
+                        <div class="vinyl-cards" id="vinylCards"></div>
+                        <div class="vinyl-active-card" id="vinylActive">
+                            <div class="vac-inner">
+                                <div class="vac-header">
+                                    <img
+                                        id="vacPhoto"
+                                        class="vac-photo"
+                                        src=""
+                                        alt=""
+                                    />
+                                    <div>
+                                        <div class="vac-name" id="vacName"></div>
+                                        <div class="vac-tag" id="vacTag"></div>
+                                    </div>
                                 </div>
+                                <div class="vac-counter" id="vacCounter">1 / 5</div>
+                                <div class="vac-points">
+                                    <div class="vac-point before">
+                                        <div class="vac-label">До</div>
+                                        <p id="vacBefore"></p>
+                                    </div>
+                                    <div class="vac-point after">
+                                        <div class="vac-label">После</div>
+                                        <p id="vacAfter"></p>
+                                    </div>
+                                </div>
+                                <a
+                                    id="vacMusic"
+                                    href="#"
+                                    target="_blank"
+                                    class="case-music-link"
+                                    style="display: none"
+                                    >Слушать на Яндекс Музыке</a
+                                >
                             </div>
-                            <div class="vac-counter" id="vacCounter">1 / 5</div>
-                            <div class="vac-points">
-                                <div class="vac-point before">
-                                    <div class="vac-label">До</div>
-                                    <p id="vacBefore"></p>
-                                </div>
-                                <div class="vac-point after">
-                                    <div class="vac-label">После</div>
-                                    <p id="vacAfter"></p>
-                                </div>
+                        </div>
+                        <div class="vinyl-wrap">
+                            <div class="vinyl-record" id="vinylRecord">
+                                <div
+                                    class="vinyl-groove"
+                                    style="width: 90%; height: 90%"
+                                ></div>
+                                <div
+                                    class="vinyl-groove"
+                                    style="width: 80%; height: 80%"
+                                ></div>
+                                <div
+                                    class="vinyl-groove"
+                                    style="width: 70%; height: 70%"
+                                ></div>
+                                <div
+                                    class="vinyl-groove"
+                                    style="width: 60%; height: 60%"
+                                ></div>
+                                <div
+                                    class="vinyl-groove"
+                                    style="width: 50%; height: 50%"
+                                ></div>
+                                <div
+                                    class="vinyl-groove"
+                                    style="width: 40%; height: 40%"
+                                ></div>
+                                <div class="vinyl-center-dot"></div>
                             </div>
-                            <a
-                                id="vacMusic"
-                                href="#"
-                                target="_blank"
-                                class="case-music-link"
-                                style="display: none"
-                                >Слушать на Яндекс Музыке</a
+                            <button
+                                class="vinyl-nav vinyl-prev"
+                                onclick="vinylPrev()"
                             >
+                                &#8249;
+                            </button>
+                            <button
+                                class="vinyl-nav vinyl-next"
+                                onclick="vinylNext()"
+                            >
+                                &#8250;
+                            </button>
                         </div>
                     </div>
-                    <div class="vinyl-wrap">
-                        <div class="vinyl-record" id="vinylRecord">
-                            <div
-                                class="vinyl-groove"
-                                style="width: 90%; height: 90%"
-                            ></div>
-                            <div
-                                class="vinyl-groove"
-                                style="width: 80%; height: 80%"
-                            ></div>
-                            <div
-                                class="vinyl-groove"
-                                style="width: 70%; height: 70%"
-                            ></div>
-                            <div
-                                class="vinyl-groove"
-                                style="width: 60%; height: 60%"
-                            ></div>
-                            <div
-                                class="vinyl-groove"
-                                style="width: 50%; height: 50%"
-                            ></div>
-                            <div
-                                class="vinyl-groove"
-                                style="width: 40%; height: 40%"
-                            ></div>
-                            <div class="vinyl-center-dot"></div>
+                    <div class="trust-panel">
+                        <div class="trust-group">
+                            <div class="trust-title">Бренды, которые мне доверяют:</div>
+                            <div class="trust-logos">
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Бренды которые мне доверяют 1.png"
+                                        alt="Бренд"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Бренды которые мне доверяют 2.png"
+                                        alt="Бренд"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Бренды которые мне доверяют 3.png"
+                                        alt="Бренд"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Бренды которые мне доверяют 4.png"
+                                        alt="Бренд"
+                                    />
+                                </div>
+                                <div class="trust-logo wide">
+                                    <img
+                                        src="assets/Бренды которые мне доверяют 5.png"
+                                        alt="Бренд"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <button
-                            class="vinyl-nav vinyl-prev"
-                            onclick="vinylPrev()"
-                        >
-                            &#8249;
-                        </button>
-                        <button
-                            class="vinyl-nav vinyl-next"
-                            onclick="vinylNext()"
-                        >
-                            &#8250;
-                        </button>
+                        <div class="trust-group">
+                            <div class="trust-title">
+                                Лейблы с которыми я сотрудничаю:
+                            </div>
+                            <div class="trust-logos">
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Сотрудничает с лейблами 1.png"
+                                        alt="Лейбл"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Сотрудничает с лейблами 2.png"
+                                        alt="Лейбл"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Сотрудничает с лейблами 3.png"
+                                        alt="Лейбл"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Сотрудничает с лейблами 4.png"
+                                        alt="Лейбл"
+                                    />
+                                </div>
+                                <div class="trust-logo wide">
+                                    <img
+                                        src="assets/Сотрудничает с лейблами 5.png"
+                                        alt="Лейбл"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trust-group">
+                            <div class="trust-title">
+                                Участник и призёр крупнейших баттлов РФ:
+                            </div>
+                            <div class="trust-logos">
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Участник и призёр крупнейших баттлов 1.png"
+                                        alt="Баттл"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Участник и призёр крупнейших баттлов 2.png"
+                                        alt="Баттл"
+                                    />
+                                </div>
+                                <div class="trust-logo">
+                                    <img
+                                        src="assets/Участник и призёр крупнейших баттлов 3.png"
+                                        alt="Баттл"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2197,6 +2459,15 @@
             document.addEventListener("DOMContentLoaded", () =>
                 renderVinyl(false),
             );
+
+            function toggleHeroMore() {
+                const block = document.getElementById("heroMore");
+                const btn = block?.querySelector(".hero-more-toggle");
+                if (!block || !btn) return;
+
+                const isOpen = block.classList.toggle("open");
+                btn.setAttribute("aria-expanded", String(isOpen));
+            }
 
             // FAQ
             function toggleFaq(el) {
